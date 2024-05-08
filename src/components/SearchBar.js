@@ -102,6 +102,9 @@ const SearchBar = () =>{
           if(searchItem.length===0){
             setEmpty(true);
           }
+          else{
+            setEmpty(false);
+          }
 
           setCurrentList(searchItem);
           setFocusedIndex(-1);
