@@ -142,7 +142,7 @@ const SearchBar = () =>{
               placeholder="Search..."
               value={query}
               onChange={handleInputChange}
-              style={{width:"25vh", padding:"15px"}}
+              style={{width:"25vw", padding:"15px"}}
               onKeyDown={handleKeyDown}
            />
           </div>
@@ -165,7 +165,7 @@ const SearchBar = () =>{
                 )
             })}
             {empty && query.length !==0 &&
-            <div style={{border:"1px solid grey"}}>
+            <div style={{border:"1px solid grey", width:"25vw"}}>
               <div style={{margin:"20px"}}> No User Found </div>
             </div>
             } 
