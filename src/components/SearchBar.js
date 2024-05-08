@@ -10,7 +10,8 @@ const SearchBar = () =>{
     const [empty, setEmpty] = useState(false);
     const [itemsInList, setItemsInList]=useState(false);
     const [focusedIndex, setFocusedIndex] = useState(-1);
-    const [prevFocusedIndex, setPrevFocusedIndex] = useState(-1); 
+    const [keyboardNavigationActive, setKeyboardNavigationActive] = useState(false);
+ 
     const containerRef = useRef(null);
     
     function fetchData (){
@@ -34,42 +35,6 @@ const SearchBar = () =>{
           });
         }
       }, [focusedIndex]);
-
-    // useEffect(() => {
-    //     console.log("focusedIndex", focusedIndex);
-      
-    //     if (containerRef.current && focusedIndex !== -1) {
-    //       const container = containerRef.current;
-    //       const child = container.children[focusedIndex];
-      
-    //       const containerTop = container.scrollTop;
-    //       const containerBottom = containerTop + container.clientHeight;
-      
-    //       const childTop = child.offsetTop;
-    //       const childBottom = childTop + child.clientHeight;
-      
-
-    //       const buffer = 20;
-      
-    //       if (childTop < containerTop || childBottom > containerBottom) {
-    //         const isDownwards = focusedIndex > prevFocusedIndex;
-      
-    //         if (isDownwards) {
-    //           container.scroll({
-    //             top: childBottom - container.clientHeight + buffer,
-    //             behavior: "smooth"
-    //           });
-    //         } else {
-    //           container.scroll({
-    //             top: childTop - buffer,
-    //             behavior: "smooth"
-    //           });
-    //         }
-    //       }
-    //     }
-    //     setPrevFocusedIndex(focusedIndex);
-    //   }, [focusedIndex, prevFocusedIndex]);
-        
 
 
     function onSearch(search){
@@ -125,14 +90,27 @@ const SearchBar = () =>{
           setFocusedIndex((prevIndex) =>
             prevIndex < currentList.length - 1 ? prevIndex + 1 : prevIndex
           );
+          setKeyboardNavigationActive(true);  
         } else if (event.key === "ArrowUp") {
           event.preventDefault();
           setFocusedIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+          setKeyboardNavigationActive(true);
         }
     };
 
-    const getCardStyle = (index) => {
-        return index === focusedIndex  ? "card focused" : "card";
+    const handleMouseEnter = (index) => {
+        if (!keyboardNavigationActive) {
+          setFocusedIndex(index);
+          console.log("Mouse entered:", index);
+        } else {
+          setKeyboardNavigationActive(false);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (keyboardNavigationActive) {
+          setKeyboardNavigationActive(false); // Reset keyboardNavigationActive when mouse leaves
+        }
     };
 
 
@@ -160,8 +138,8 @@ const SearchBar = () =>{
                       <div 
                        key={item.id}
                        className={index === focusedIndex ? "hovered" : ""}
-                       onMouseEnter={() => {setFocusedIndex(index); console.log("Mouse entered:", index);}} 
-                       onMouseLeave={() => setFocusedIndex(-1)} >
+                       onMouseEnter={() => {handleMouseEnter(index)}} 
+                        >
                         <Card item={item} search={query} itemsInList={itemsInList}/>
                       </div>
                     </>
