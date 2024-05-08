@@ -24,6 +24,8 @@ const SearchBar = () =>{
       fetchData();
     },[])
 
+    console.log("list:", list);
+
 
     useEffect(() => {
         console.log("focusedIndex", focusedIndex);
@@ -59,6 +61,9 @@ const SearchBar = () =>{
                 const foundItem = item.items.find((i) => i.includes(search));
                 if(foundItem){
                     setItemsInList(true);
+                }
+                else{
+                    setItemsInList(false);
                 }
                 return foundItem !== undefined;
             }
@@ -138,7 +143,7 @@ const SearchBar = () =>{
                       <div 
                        key={item.id}
                        className={index === focusedIndex ? "hovered" : ""}
-                       onMouseEnter={() => {handleMouseEnter(index)}} 
+                       onMouseEnter={() => {handleMouseEnter(index)}}
                         >
                         <Card item={item} search={query} itemsInList={itemsInList}/>
                       </div>
