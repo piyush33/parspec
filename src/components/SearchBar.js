@@ -38,40 +38,40 @@ const SearchBar = () =>{
         }
       }, [focusedIndex]);
 
-    useEffect(() => {
-        console.log("focusedIndex", focusedIndex);
+    // useEffect(() => {
+    //     console.log("focusedIndex", focusedIndex);
       
-        if (containerRef.current && focusedIndex !== -1) {
-          const container = containerRef.current;
-          const child = container.children[focusedIndex];
+    //     if (containerRef.current && focusedIndex !== -1) {
+    //       const container = containerRef.current;
+    //       const child = container.children[focusedIndex];
       
-          const containerTop = container.scrollTop;
-          const containerBottom = containerTop + container.clientHeight;
+    //       const containerTop = container.scrollTop;
+    //       const containerBottom = containerTop + container.clientHeight;
       
-          const childTop = child.offsetTop;
-          const childBottom = childTop + child.clientHeight;
+    //       const childTop = child.offsetTop;
+    //       const childBottom = childTop + child.clientHeight;
       
 
-          const buffer = 20;
+    //       const buffer = 20;
       
-          if (childTop < containerTop || childBottom > containerBottom) {
-            const isDownwards = focusedIndex > prevFocusedIndex;
+    //       if (childTop < containerTop || childBottom > containerBottom) {
+    //         const isDownwards = focusedIndex > prevFocusedIndex;
       
-            if (isDownwards) {
-              container.scroll({
-                top: childBottom - container.clientHeight + buffer,
-                behavior: "smooth"
-              });
-            } else {
-              container.scroll({
-                top: childTop - buffer,
-                behavior: "smooth"
-              });
-            }
-          }
-        }
-        setPrevFocusedIndex(focusedIndex);
-      }, [focusedIndex, prevFocusedIndex]);
+    //         if (isDownwards) {
+    //           container.scroll({
+    //             top: childBottom - container.clientHeight + buffer,
+    //             behavior: "smooth"
+    //           });
+    //         } else {
+    //           container.scroll({
+    //             top: childTop - buffer,
+    //             behavior: "smooth"
+    //           });
+    //         }
+    //       }
+    //     }
+    //     setPrevFocusedIndex(focusedIndex);
+    //   }, [focusedIndex, prevFocusedIndex]);
         
 
 
