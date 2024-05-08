@@ -23,9 +23,6 @@ const SearchBar = () =>{
       fetchData();
     },[])
 
-    useEffect(() => {
-        containerRef.current.focus();
-    }, []);
 
     useEffect(() => {
         console.log("focusedIndex", focusedIndex);
@@ -116,7 +113,6 @@ const SearchBar = () =>{
       setQuery(inputValue);
       // Trigger search function here
       onSearch(inputValue);
-      containerRef.current.focus();
 
     };
 
@@ -147,11 +143,11 @@ const SearchBar = () =>{
               value={query}
               onChange={handleInputChange}
               style={{width:"25vh", padding:"15px"}}
+              onKeyDown={handleKeyDown}
            />
           </div>
           <div 
              className="container"
-             onKeyDown={handleKeyDown}
              tabIndex={0} 
              ref={containerRef} 
              style={{height:"35vh", overflowY:"scroll"}}>
