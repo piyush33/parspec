@@ -40,6 +40,8 @@ const SearchBar = () =>{
 
 
     function onSearch(search){
+
+        let foundMatchingItem = false;
        
         let searchItem = list.filter((item) => {
             if (search === "") {
@@ -60,15 +62,21 @@ const SearchBar = () =>{
             else if (item.items.length !==0){
                 const foundItem = item.items.find((i) => i.includes(search));
                 if(foundItem){
-                    setItemsInList(true);
+                    foundMatchingItem = true;
+                    return foundItem !== undefined;
                 }
-                else{
-                    setItemsInList(false);
-                }
-                return foundItem !== undefined;
             }
             return false;
           });
+
+          if(foundMatchingItem){
+            setItemsInList(true);
+          }
+          else{
+            setItemsInList(false);
+          }
+
+
           if(searchItem.length===0){
             setEmpty(true);
           }
